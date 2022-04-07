@@ -11,47 +11,47 @@ namespace WebAPIDemo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class StaffController : ControllerBase
     {
-        private readonly UserContext _context;
+        private readonly StaffContext _context;
 
-        public UserController(UserContext context)
+        public StaffController(StaffContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/Staff
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<Staff>>> GetStaff()
         {
-            return await _context.User.ToListAsync();
+            return await _context.Staff.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/Staff/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(string id)
+        public async Task<ActionResult<Staff>> GetStaff(string id)
         {
-            var user = await _context.User.FindAsync(id);
+            var staff = await _context.Staff.FindAsync(id);
 
-            if (user == null)
+            if (staff == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return staff;
         }
 
-        // PUT: api/User/5
+        // PUT: api/Staff/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(string id, User user)
+        public async Task<IActionResult> PutStaff(string id, Staff staff)
         {
-            if (id != user.Id)
+            if (id != staff.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(staff).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebAPIDemo.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!StaffExists(id))
                 {
                     return NotFound();
                 }
@@ -72,19 +72,19 @@ namespace WebAPIDemo.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/Staff
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Staff>> PostStaff(Staff staff)
         {
-            _context.User.Add(user);
+            _context.Staff.Add(staff);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.Id))
+                if (StaffExists(staff.Id))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace WebAPIDemo.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetStaff", new { id = staff.Id }, staff);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/Staff/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(string id)
+        public async Task<IActionResult> DeleteStaff(string id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var staff = await _context.Staff.FindAsync(id);
+            if (staff == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.Staff.Remove(staff);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(string id)
+        private bool StaffExists(string id)
         {
-            return _context.User.Any(e => e.Id == id);
+            return _context.Staff.Any(e => e.Id == id);
         }
     }
 }

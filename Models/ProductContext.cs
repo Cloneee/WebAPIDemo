@@ -9,6 +9,6 @@ namespace WebAPIDemo.Models
         {
         }
 
-        public DbSet<Coffee> Coffee { get; set; } = null!;
+        public DbSet<Product> Product { get; set; } = null!;
     }
 }

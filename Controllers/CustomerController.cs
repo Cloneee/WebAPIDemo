@@ -11,47 +11,47 @@ namespace WebAPIDemo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        private readonly ProductContext _context;
+        private readonly CustomerContext _context;
 
-        public ProductController(ProductContext context)
+        public CustomerController(CustomerContext context)
         {
             _context = context;
         }
 
-        // GET: api/Product
+        // GET: api/Customer
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer()
         {
-            return await _context.Product.ToListAsync();
+            return await _context.Customer.ToListAsync();
         }
 
-        // GET: api/Product/5
+        // GET: api/Customer/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(string id)
+        public async Task<ActionResult<Customer>> GetCustomer(string id)
         {
-            var product = await _context.Product.FindAsync(id);
+            var customer = await _context.Customer.FindAsync(id);
 
-            if (product == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return customer;
         }
 
-        // PUT: api/Product/5
+        // PUT: api/Customer/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(string id, Product product)
+        public async Task<IActionResult> PutCustomer(string id, Customer customer)
         {
-            if (id != product.Id)
+            if (id != customer.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(customer).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebAPIDemo.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!CustomerExists(id))
                 {
                     return NotFound();
                 }
@@ -72,19 +72,19 @@ namespace WebAPIDemo.Controllers
             return NoContent();
         }
 
-        // POST: api/Product
+        // POST: api/Customer
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
-            _context.Product.Add(product);
+            _context.Customer.Add(customer);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ProductExists(product.Id))
+                if (CustomerExists(customer.Id))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace WebAPIDemo.Controllers
                 }
             }
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
         }
 
-        // DELETE: api/Product/5
+        // DELETE: api/Customer/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(string id)
+        public async Task<IActionResult> DeleteCustomer(string id)
         {
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            var customer = await _context.Customer.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            _context.Product.Remove(product);
+            _context.Customer.Remove(customer);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ProductExists(string id)
+        private bool CustomerExists(string id)
         {
-            return _context.Product.Any(e => e.Id == id);
+            return _context.Customer.Any(e => e.Id == id);
         }
     }
 }

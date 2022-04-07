@@ -11,47 +11,47 @@ namespace WebAPIDemo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class OrderController : ControllerBase
     {
-        private readonly ProductContext _context;
+        private readonly OrderContext _context;
 
-        public ProductController(ProductContext context)
+        public OrderController(OrderContext context)
         {
             _context = context;
         }
 
-        // GET: api/Product
+        // GET: api/Order
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrder()
         {
-            return await _context.Product.ToListAsync();
+            return await _context.Order.ToListAsync();
         }
 
-        // GET: api/Product/5
+        // GET: api/Order/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(string id)
+        public async Task<ActionResult<Order>> GetOrder(string id)
         {
-            var product = await _context.Product.FindAsync(id);
+            var order = await _context.Order.FindAsync(id);
 
-            if (product == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return order;
         }
 
-        // PUT: api/Product/5
+        // PUT: api/Order/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(string id, Product product)
+        public async Task<IActionResult> PutOrder(string id, Order order)
         {
-            if (id != product.Id)
+            if (id != order.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(order).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebAPIDemo.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!OrderExists(id))
                 {
                     return NotFound();
                 }
@@ -72,19 +72,19 @@ namespace WebAPIDemo.Controllers
             return NoContent();
         }
 
-        // POST: api/Product
+        // POST: api/Order
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Order>> PostOrder(Order order)
         {
-            _context.Product.Add(product);
+            _context.Order.Add(order);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ProductExists(product.Id))
+                if (OrderExists(order.Id))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace WebAPIDemo.Controllers
                 }
             }
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
 
-        // DELETE: api/Product/5
+        // DELETE: api/Order/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(string id)
+        public async Task<IActionResult> DeleteOrder(string id)
         {
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            var order = await _context.Order.FindAsync(id);
+            if (order == null)
             {
                 return NotFound();
             }
 
-            _context.Product.Remove(product);
+            _context.Order.Remove(order);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ProductExists(string id)
+        private bool OrderExists(string id)
         {
-            return _context.Product.Any(e => e.Id == id);
+            return _context.Order.Any(e => e.Id == id);
         }
     }
 }
