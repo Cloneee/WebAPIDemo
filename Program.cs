@@ -27,6 +27,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ProductContext>();
+    DataGenerator.Initialize(services);
+}
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

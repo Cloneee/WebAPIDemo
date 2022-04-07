@@ -24,6 +24,7 @@ namespace WebAPIDemo.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrder()
         {
+            Console.WriteLine(_context.Order);
             return await _context.Order.ToListAsync();
         }
 
