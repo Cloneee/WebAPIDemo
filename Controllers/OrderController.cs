@@ -24,7 +24,6 @@ namespace WebAPIDemo.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrder()
         {
-            Console.WriteLine(_context.Order);
             return await _context.Order.ToListAsync();
         }
 
@@ -47,7 +46,7 @@ namespace WebAPIDemo.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(string id, Order order)
         {
-            if (id != order.Id)
+            if (id != order.OrderId)
             {
                 return BadRequest();
             }
@@ -85,7 +84,7 @@ namespace WebAPIDemo.Controllers
             }
             catch (DbUpdateException)
             {
-                if (OrderExists(order.Id))
+                if (OrderExists(order.OrderId))
                 {
                     return Conflict();
                 }
@@ -95,7 +94,7 @@ namespace WebAPIDemo.Controllers
                 }
             }
 
-            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+            return CreatedAtAction("GetOrder", new { id = order.OrderId }, order);
         }
 
         // DELETE: api/Order/5
@@ -116,7 +115,7 @@ namespace WebAPIDemo.Controllers
 
         private bool OrderExists(string id)
         {
-            return _context.Order.Any(e => e.Id == id);
+            return _context.Order.Any(e => e.OrderId == id);
         }
     }
 }

@@ -18,33 +18,33 @@ public class DataGenerator
             context.Product.AddRange(
                 new Product
                 {
-                    Id = "001",
+                    ProductId = "001",
                     Name = "Cà phê sữa",
                     Price = 27000,
                     Description = "Cà phê sữa thơm ngon, thôi tui không chờ bạn nữa giờ tui uống liên"
                 },
                 new Product
                 {
-                    Id = "002",
+                    ProductId = "002",
                     Name = "Cà phê đen",
                     Price = 25000,
                     Description = "Cà phê đen thơm ngon, thôi tui không chờ bạn nữa giờ tui uống liên"
                 },
                 new Product
                 {
-                    Id = "003",
+                    ProductId = "003",
                     Name = "Americano",
                     Price = 29000
                 },
                 new Product
                 {
-                    Id = "004",
+                    ProductId = "004",
                     Name = "Moca",
                     Price = 29000
                 },
                 new Product
                 {
-                    Id = "005",
+                    ProductId = "005",
                     Name = "Esspresso",
                     Price = 25000
                 }
@@ -64,7 +64,7 @@ public class DataGenerator
             context.Staff.AddRange(
                 new Staff
                 {
-                    Id = "001",
+                    StaffId = "001",
                     Username = "huypropropro",
                     Password = "123456",
                     Email = "thanhhuy@gmail.com",
@@ -72,7 +72,7 @@ public class DataGenerator
                 },
                 new Staff
                 {
-                    Id = "002",
+                    StaffId = "002",
                     Username = "huymana",
                     Password = "123456",
                     Email = "thanhhuy2@gmail.com",
@@ -80,7 +80,7 @@ public class DataGenerator
                 },
                 new Staff
                 {
-                    Id = "003",
+                    StaffId = "003",
                     Username = "huystaff",
                     Password = "123456",
                     Email = "thanhhuy3@gmail.com",
@@ -102,24 +102,50 @@ public class DataGenerator
             context.Customer.AddRange(
                 new Customer
                 {
-                    Id = "001",
+                    CustomerId = "001",
                     Username = "khachhang1",
                     Password = "123456",
                     Email = "khachhang1@gmail.com"
                 },
                 new Customer
                 {
-                    Id = "002",
+                    CustomerId = "002",
                     Username = "khachhang2",
                     Password = "123456",
                     Email = "khachhang2@gmail.com"
                 },
                 new Customer
                 {
-                    Id = "003",
+                    CustomerId = "003",
                     Username = "khachhang3",
                     Password = "123456",
                     Email = "khachhang3@gmail.com"
+                }
+                );
+
+            context.SaveChanges();
+        }
+using (var context = new OrderItemContext(
+            serviceProvider.GetRequiredService<DbContextOptions<OrderItemContext>>()))
+        {
+            // Look for any board games.
+            if (context.OrderItem.Any())
+            {
+                return;   // Data was already seeded
+            }
+
+            context.OrderItem.AddRange(
+                new OrderItem
+                {
+                    OrderItemId = "001",
+                },
+                new OrderItem
+                {
+                    OrderItemId = "002",
+                },
+                new OrderItem
+                {
+                    OrderItemId = "003",
                 }
                 );
 
@@ -136,27 +162,21 @@ public class DataGenerator
             context.Order.AddRange(
                 new Order
                 {
-                    Id = "001",
-                    Quantity = 1,
-                    ProductRefId = new List<string>{"001", "002"},
-                    CustomerRefId = "002",
-                    StaffRefId = "001"
+                    OrderId = "001",
+                    CustomerId = "002",
+                    StaffId = "001"
                 },
                 new Order
                 {
-                    Id = "002",
-                    Quantity = 1,
-                    ProductRefId = new List<string>{"002", "003"},
-                    CustomerRefId = "003",
-                    StaffRefId = "003"
+                    OrderId = "002",
+                    CustomerId = "003",
+                    StaffId = "003"
                 },
                 new Order
                 {
-                    Id = "003",
-                    Quantity = 1,
-                    ProductRefId = new List<string>{"004", "005"},
-                    CustomerRefId = "002",
-                    StaffRefId = "002"
+                    OrderId = "003",
+                    CustomerId = "002",
+                    StaffId = "002"
                 }
                 );
 

@@ -46,7 +46,7 @@ namespace WebAPIDemo.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(string id, Customer customer)
         {
-            if (id != customer.Id)
+            if (id != customer.CustomerId)
             {
                 return BadRequest();
             }
@@ -84,7 +84,7 @@ namespace WebAPIDemo.Controllers
             }
             catch (DbUpdateException)
             {
-                if (CustomerExists(customer.Id))
+                if (CustomerExists(customer.CustomerId))
                 {
                     return Conflict();
                 }
@@ -94,7 +94,7 @@ namespace WebAPIDemo.Controllers
                 }
             }
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
         }
 
         // DELETE: api/Customer/5
@@ -115,7 +115,7 @@ namespace WebAPIDemo.Controllers
 
         private bool CustomerExists(string id)
         {
-            return _context.Customer.Any(e => e.Id == id);
+            return _context.Customer.Any(e => e.CustomerId == id);
         }
     }
 }

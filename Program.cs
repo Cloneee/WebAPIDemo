@@ -7,13 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ProductContext>(opt =>
-    opt.UseInMemoryDatabase("ProductList"));
+    opt.UseInMemoryDatabase("WebAPIDb"));
 builder.Services.AddDbContext<CustomerContext>(opt =>
-    opt.UseInMemoryDatabase("CustomerList"));
+    opt.UseInMemoryDatabase("WebAPIDb"));
 builder.Services.AddDbContext<StaffContext>(opt =>
-    opt.UseInMemoryDatabase("StaffList"));
+    opt.UseInMemoryDatabase("WebAPIDb"));
 builder.Services.AddDbContext<OrderContext>(opt =>
-    opt.UseInMemoryDatabase("OrderList"));
+    opt.UseInMemoryDatabase("WebAPIDb"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

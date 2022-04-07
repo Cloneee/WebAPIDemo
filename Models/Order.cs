@@ -1,12 +1,17 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace WebAPIDemo.Models
 {
+    [Table("Order")]
     public class Order
     {
-        public string Id { get; set; }
-        public int Quantity { get; set; }
-        public List<string> ProductRefId { get; set; }
-        public string CustomerRefId { get; set; }
-        public string StaffRefId {get; set; }
+        [Key]
+        public string OrderId { get; set; }
+        public string OrderItemId { get; set; }
+        public string CustomerId { get; set; }
+        public string StaffId { get; set; }
+        public virtual Staff Staff { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual ICollection<OrderItem> OrderItem { get; set; }
     }
 }

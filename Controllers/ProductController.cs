@@ -46,7 +46,7 @@ namespace WebAPIDemo.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(string id, Product product)
         {
-            if (id != product.Id)
+            if (id != product.ProductId)
             {
                 return BadRequest();
             }
@@ -84,7 +84,7 @@ namespace WebAPIDemo.Controllers
             }
             catch (DbUpdateException)
             {
-                if (ProductExists(product.Id))
+                if (ProductExists(product.ProductId))
                 {
                     return Conflict();
                 }
@@ -94,7 +94,7 @@ namespace WebAPIDemo.Controllers
                 }
             }
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
         }
 
         // DELETE: api/Product/5
@@ -115,7 +115,7 @@ namespace WebAPIDemo.Controllers
 
         private bool ProductExists(string id)
         {
-            return _context.Product.Any(e => e.Id == id);
+            return _context.Product.Any(e => e.ProductId == id);
         }
     }
 }
